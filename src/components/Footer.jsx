@@ -1,6 +1,5 @@
-import { ArrowUp, Mail } from 'lucide-react'
-import { GithubIcon, LinkedinIcon } from './Icons'
-import { personalInfo, navigation } from '../data/portfolioData'
+import { MapPin, Sparkles, ArrowUp } from 'lucide-react'
+import { personalInfo } from '../data/portfolioData'
 
 export default function Footer() {
   function scrollToTop() {
@@ -8,84 +7,48 @@ export default function Footer() {
   }
 
   return (
-    <footer className="relative border-t border-slate-800/80 bg-[#060a12] text-slate-400">
-      <div className="mx-auto max-w-7xl px-6 py-12 lg:px-10">
-        <div className="flex flex-col items-center justify-between gap-8 md:flex-row">
-          {/* Brand Info */}
-          <div className="flex flex-col items-center gap-2 md:items-start">
-            <div className="flex items-center gap-2.5">
-              <span className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-cyan-400 to-blue-600 font-mono text-xs font-bold text-white">
-                IM
-              </span>
-              <span className="text-sm font-extrabold tracking-tight text-white">
-                Iarley Marques <span className="text-cyan-400">/ Full Stack</span>
-              </span>
+    <footer className="relative border-t border-slate-800/80 bg-[#05070d] py-6 text-slate-400">
+      <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 px-6 sm:flex-row lg:px-10">
+        
+        {/* Left: Brand Icon + Divider + Two-line Text */}
+        <div className="flex items-center gap-4">
+          <a
+            href="#inicio"
+            aria-label="Voltar ao início"
+            className="group grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-amber-400 font-display text-xs font-black text-slate-950 shadow-sm shadow-amber-400/20 transition-transform group-hover:scale-105"
+          >
+            <span className="font-display text-xs font-black text-slate-950">IM</span>
+          </a>
+
+          {/* Vertical Divider */}
+          <div className="h-8 w-px bg-slate-800/90" />
+
+          {/* Two-line Text */}
+          <div className="flex flex-col text-left">
+            <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-200">
+              <MapPin size={13} className="text-amber-400 shrink-0" />
+              <span>Cascavel - CE · Full Stack & IA</span>
             </div>
-            <p className="font-mono text-xs text-slate-500">
-              Cascavel, Ceará · Solar Coca-Cola 
+            <p className="font-mono text-[11px] text-slate-400">
+              © {new Date().getFullYear()} Iarley Marques. Todos os direitos reservados.
             </p>
           </div>
-
-          {/* Quick Links */}
-          <div className="flex flex-wrap justify-center gap-6 text-xs font-semibold uppercase tracking-wider text-slate-400">
-            {navigation.map(({ label, href }) => (
-              <a
-                key={href}
-                href={href}
-                className="transition hover:text-cyan-300"
-              >
-                {label}
-              </a>
-            ))}
-          </div>
-
-          {/* Social & Back to Top */}
-          <div className="flex items-center gap-4">
-            <a
-              href={personalInfo.github}
-              target="_blank"
-              rel="noreferrer"
-              aria-label="GitHub"
-              className="rounded-lg border border-slate-800 bg-slate-900/60 p-2 text-slate-400 transition hover:border-slate-700 hover:text-white"
-            >
-              <GithubIcon size={16} />
-            </a>
-            <a
-              href={personalInfo.linkedin}
-              target="_blank"
-              rel="noreferrer"
-              aria-label="LinkedIn"
-              className="rounded-lg border border-slate-800 bg-slate-900/60 p-2 text-slate-400 transition hover:border-cyan-500/50 hover:text-cyan-300"
-            >
-              <LinkedinIcon size={16} />
-            </a>
-            <a
-              href={`mailto:${personalInfo.email}`}
-              aria-label="E-mail"
-              className="rounded-lg border border-slate-800 bg-slate-900/60 p-2 text-slate-400 transition hover:border-sky-500/50 hover:text-sky-300"
-            >
-              <Mail size={16} />
-            </a>
-            <button
-              type="button"
-              onClick={scrollToTop}
-              aria-label="Voltar ao topo"
-              className="rounded-lg border border-slate-800 bg-slate-900/80 p-2 text-slate-400 transition hover:bg-cyan-500/10 hover:text-cyan-300 hover:border-cyan-500/30"
-            >
-              <ArrowUp size={16} />
-            </button>
-          </div>
         </div>
 
-        {/* Bottom copyright */}
-        <div className="mt-8 border-t border-slate-800/60 pt-6 flex flex-col items-center justify-between gap-3 text-center sm:flex-row text-xs text-slate-500">
-          <span>© 2026 Iarley Marques. Desenvolvido com código de alta performance e foco em IA.</span>
-          <span className="font-mono text-[11px] text-slate-600">
-            REACT 19 · TAILWIND CSS · VITE · FASTAPI · RAILWAY
+        {/* Right: Pill Badge "Desenvolvido por Iarley Marques" */}
+        <button
+          type="button"
+          onClick={scrollToTop}
+          className="group inline-flex items-center gap-2 rounded-full border border-slate-800 bg-slate-900/80 px-4 py-2 font-mono text-xs text-slate-300 transition-all hover:border-amber-400/40 hover:bg-slate-800/90 hover:text-white cursor-pointer shadow-sm"
+        >
+          <Sparkles size={13} className="text-amber-400 transition-transform group-hover:scale-110" />
+          <span>
+            Desenvolvido por <strong className="font-bold text-white group-hover:text-amber-300 transition-colors">Iarley Marques</strong>
           </span>
-        </div>
+          <ArrowUp size={12} className="ml-0.5 text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+        </button>
+
       </div>
     </footer>
   )
 }
-
