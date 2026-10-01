@@ -1,4 +1,4 @@
-import { MapPin, Sparkles, ArrowUp } from 'lucide-react'
+import { MapPin, ArrowUp } from 'lucide-react'
 import { personalInfo } from '../data/portfolioData'
 
 export default function Footer() {
@@ -7,46 +7,79 @@ export default function Footer() {
   }
 
   return (
-    <footer className="relative border-t border-slate-800/80 bg-[#05070d] py-6 text-slate-400">
-      <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 px-6 sm:flex-row lg:px-10">
+    <footer
+      className="relative py-12"
+      style={{
+        background: 'var(--bg)',
+        borderTop: '1px solid #e0d8ce',
+      }}
+    >
+      <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 px-6 sm:flex-row lg:px-10">
         
-        {/* Left: Brand Icon + Divider + Two-line Text */}
-        <div className="flex items-center gap-4">
+        {/* Left: Brand Wordmark + Location */}
+        <div className="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
           <a
             href="#inicio"
             aria-label="Voltar ao início"
-            className="group grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-amber-400 font-display text-xs font-black text-slate-950 shadow-sm shadow-amber-400/20 transition-transform group-hover:scale-105"
+            className="transition-opacity hover:opacity-80"
           >
-            <span className="font-display text-xs font-black text-slate-950">IM</span>
+            <span
+              style={{
+                fontFamily: 'Fraunces, Georgia, serif',
+                fontSize: '1.4rem',
+                fontWeight: 700,
+                color: 'var(--ink)',
+                letterSpacing: '-0.02em',
+              }}
+            >
+              Iarley<span style={{ color: 'var(--accent)' }}>.</span>
+            </span>
           </a>
 
-          {/* Vertical Divider */}
-          <div className="h-8 w-px bg-slate-800/90" />
+          {/* Divider on desktop */}
+          <div className="hidden sm:block h-4 w-px" style={{ background: '#d4cbbe' }} />
 
-          {/* Two-line Text */}
-          <div className="flex flex-col text-left">
-            <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-200">
-              <MapPin size={13} className="text-amber-400 shrink-0" />
-              <span>Cascavel - CE · Full Stack & IA</span>
-            </div>
-            <p className="font-mono text-[11px] text-slate-400">
-              © {new Date().getFullYear()} Iarley Marques. Todos os direitos reservados.
-            </p>
+          <div className="flex items-center gap-1.5 text-xs" style={{ fontFamily: 'Space Grotesk', color: 'var(--ink-muted)' }}>
+            <MapPin size={13} style={{ color: 'var(--accent)' }} className="shrink-0" />
+            <span>{personalInfo.location} · {personalInfo.role}</span>
           </div>
         </div>
 
-        {/* Right: Pill Badge "Desenvolvido por Iarley Marques" */}
-        <button
-          type="button"
-          onClick={scrollToTop}
-          className="group inline-flex items-center gap-2 rounded-full border border-slate-800 bg-slate-900/80 px-4 py-2 font-mono text-xs text-slate-300 transition-all hover:border-amber-400/40 hover:bg-slate-800/90 hover:text-white cursor-pointer shadow-sm"
-        >
-          <Sparkles size={13} className="text-amber-400 transition-transform group-hover:scale-110" />
-          <span>
-            Desenvolvido por <strong className="font-bold text-white group-hover:text-amber-300 transition-colors">Iarley Marques</strong>
-          </span>
-          <ArrowUp size={12} className="ml-0.5 text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity" />
-        </button>
+        {/* Center/Right: Copyright + Back to Top */}
+        <div className="flex flex-col sm:flex-row items-center gap-5">
+          <p
+            className="text-xs"
+            style={{ fontFamily: 'Space Grotesk', color: 'var(--ink-faint)' }}
+          >
+            © {new Date().getFullYear()} Iarley Marques. Feito com rigor editorial.
+          </p>
+
+          <button
+            type="button"
+            onClick={scrollToTop}
+            aria-label="Voltar ao topo"
+            className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-semibold transition-all cursor-pointer"
+            style={{
+              fontFamily: 'Space Grotesk',
+              border: '1px solid #dcd4c8',
+              background: '#ffffff',
+              color: 'var(--ink)',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'var(--ink)'
+              e.currentTarget.style.color = '#ffffff'
+              e.currentTarget.style.borderColor = 'var(--ink)'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = '#ffffff'
+              e.currentTarget.style.color = 'var(--ink)'
+              e.currentTarget.style.borderColor = '#dcd4c8'
+            }}
+          >
+            <span>Topo</span>
+            <ArrowUp size={13} />
+          </button>
+        </div>
 
       </div>
     </footer>

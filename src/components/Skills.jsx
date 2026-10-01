@@ -1,80 +1,166 @@
-import { Code2, Terminal, Database, BrainCircuit, Sparkles } from 'lucide-react'
+import { useEffect } from 'react'
 import { skillCategories } from '../data/portfolioData'
 
-const icons = {
-  'Front-end': Code2,
-  'Back-end e APIs': Terminal,
-  'Dados e nuvem': Database,
-  'Inteligência artificial': BrainCircuit,
-}
+// All skills flattened into categories for a flowing cloud/list
+const allSkills = [
+  // Frontend
+  'React 19', 'Tailwind CSS', 'JavaScript (ES6+)', 'HTML5 & CSS3', 'Vite', 'Layout responsivo',
+  // Backend
+  'Python', 'FastAPI', 'Uvicorn', 'Node.js', 'Express', 'APIs REST', 'SQLAlchemy', 'SSE',
+  // Data & Cloud
+  'PostgreSQL', 'AWS', 'Railway', 'IndexedDB', 'Docker', 'Git & GitHub', 'JWT', 'OAuth 2.0',
+  // AI
+  'Groq API', 'Llama SDK', 'Claude Code', 'Google Gemini', 'n8n', 'OCR', 'Visão Multimodal', 'RAG',
+]
 
 export default function Skills() {
-  return (
-    <section id="habilidades" className="relative scroll-mt-24 border-t border-slate-800/80 py-24 lg:py-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        
-        {/* Section Header */}
-        <div className="mb-14 max-w-3xl">
-          <div className="inline-flex items-center gap-2 rounded-full border border-amber-400/20 bg-amber-400/10 px-3 py-1 font-mono text-xs font-medium text-amber-300">
-            <Sparkles size={13} />
-            <span>03 / STACK & HABILIDADES</span>
-          </div>
+  useEffect(() => {
+    const els = document.querySelectorAll('.reveal')
+    const obs = new IntersectionObserver(
+      (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') }),
+      { threshold: 0.1 }
+    )
+    els.forEach(el => obs.observe(el))
+    return () => obs.disconnect()
+  }, [])
 
-          <h2 className="mt-4 font-display text-3xl font-bold tracking-tight text-white sm:text-5xl">
-            Tecnologias dominadas na prática.
-          </h2>
-          
-          <p className="mt-4 text-base sm:text-lg leading-relaxed text-slate-300">
-            Do front-end ao banco de dados relacional, APIs assíncronas e integração com modelos de IA de última geração.
+  return (
+    <section id="habilidades" className="relative scroll-mt-24 py-24 lg:py-32" style={{ background: 'var(--bg-warm)' }}>
+      <div className="mx-auto max-w-7xl px-6 lg:px-10">
+
+        {/* — Centered header + big italic quote */}
+        <div className="reveal text-center max-w-3xl mx-auto mb-16">
+          <p
+            className="mb-4 text-xs font-semibold tracking-widest uppercase"
+            style={{ color: 'var(--accent)', fontFamily: 'Space Grotesk' }}
+          >
+            Habilidades & Stack
           </p>
+          <h2
+            className="leading-tight"
+            style={{
+              fontFamily: 'Fraunces, Georgia, serif',
+              fontSize: 'clamp(2rem, 4vw, 3.2rem)',
+              fontWeight: 700,
+              color: 'var(--ink)',
+              letterSpacing: '-0.02em',
+            }}
+          >
+            Do front-end ao deploy, com IA no meio do caminho.
+          </h2>
         </div>
 
-        {/* Categories Grid */}
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {skillCategories.map((category) => {
-            const Icon = icons[category.title] || Code2
+        {/* — Two-column: categories left, tag cloud right */}
+        <div className="grid gap-16 lg:grid-cols-[1fr_1.2fr] items-start">
 
-            return (
-              <div
-                key={category.title}
-                className="group flex flex-col justify-between rounded-3xl border border-slate-800 bg-gradient-to-b from-slate-900/90 to-slate-950/90 p-6 transition-all duration-300 hover:border-slate-700 hover:shadow-xl backdrop-blur-xl"
-              >
-                <div>
-                  <div className="flex items-center justify-between">
-                    <div className="grid h-12 w-12 place-items-center rounded-2xl border border-slate-700 bg-slate-800 text-amber-400 shadow-inner group-hover:scale-105 transition-transform">
-                      <Icon size={22} />
-                    </div>
-                    <span className="rounded-full border border-slate-700 bg-slate-800/80 px-3 py-1 font-mono text-[10px] font-semibold uppercase tracking-wider text-slate-300">
-                      {category.badge}
-                    </span>
-                  </div>
-
-                  <h3 className="mt-6 font-display text-xl font-bold text-white group-hover:text-amber-300 transition-colors">
-                    {category.title}
+          {/* Left: 4 rows with category + skill list */}
+          <div className="reveal space-y-8" style={{ animationDelay: '100ms' }}>
+            {skillCategories.map((cat, idx) => (
+              <div key={cat.title}>
+                <div className="flex items-baseline gap-4 mb-3">
+                  <h3
+                    className="text-base font-bold"
+                    style={{ fontFamily: 'Fraunces', color: 'var(--ink)', fontWeight: 700 }}
+                  >
+                    {cat.title}
                   </h3>
-                  
-                  <p className="mt-2 min-h-[40px] text-xs leading-relaxed text-slate-400">
-                    {category.description}
-                  </p>
-
-                  {/* Skills List */}
-                  <div className="mt-6 space-y-2 border-t border-slate-800/80 pt-5">
-                    {category.items.map((item, idx) => (
-                      <div
-                        key={idx}
-                        className="flex items-center justify-between rounded-xl border border-slate-800/80 bg-slate-950/60 px-3.5 py-2.5 text-xs transition hover:border-slate-700"
-                      >
-                        <span className="font-semibold text-slate-200">{item.name}</span>
-                        <span className="font-mono text-[10px] font-medium text-amber-400/90">{item.level}</span>
-                      </div>
-                    ))}
-                  </div>
+                  <div className="flex-1" style={{ borderBottom: '1px solid #d9d3cb' }} />
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {cat.items.map(item => (
+                    <span
+                      key={item.name}
+                      className="skill-tag"
+                      style={{
+                        fontSize: '12px',
+                        // highlight "Avançado" items slightly
+                        borderColor: item.level === 'Avançado' ? 'var(--ink-faint)' : '#e8e2da',
+                        fontWeight: item.level === 'Avançado' ? '600' : '500',
+                        color: item.level === 'Avançado' ? 'var(--ink)' : 'var(--ink-muted)',
+                      }}
+                    >
+                      {item.name}
+                    </span>
+                  ))}
                 </div>
               </div>
-            )
-          })}
+            ))}
+          </div>
+
+          {/* Right: big typographic layout */}
+          <div className="reveal" style={{ animationDelay: '200ms' }}>
+            <div
+              className="rounded-3xl p-8 lg:p-10"
+              style={{ background: 'var(--ink)', color: '#f5f2ee' }}
+            >
+              <p
+                className="text-xs font-semibold tracking-widest uppercase mb-6"
+                style={{ color: 'rgba(245,242,238,0.45)', fontFamily: 'Space Grotesk' }}
+              >
+                Stack atual
+              </p>
+
+              {/* Feature tech items */}
+              {[
+                { name: 'React 19 + Vite', note: 'Front-end' },
+                { name: 'Python + FastAPI', note: 'Back-end' },
+                { name: 'PostgreSQL + AWS', note: 'Dados & Nuvem' },
+                { name: 'Groq / Llama SDK', note: 'IA' },
+              ].map((item, i) => (
+                <div
+                  key={item.name}
+                  className="flex items-baseline justify-between py-4"
+                  style={{ borderBottom: '1px solid rgba(245,242,238,0.1)' }}
+                >
+                  <span
+                    style={{
+                      fontFamily: 'Fraunces',
+                      fontSize: 'clamp(1.1rem, 2vw, 1.4rem)',
+                      fontWeight: 700,
+                      color: '#f5f2ee',
+                    }}
+                  >
+                    {item.name}
+                  </span>
+                  <span
+                    className="text-xs font-medium ml-4"
+                    style={{ color: 'rgba(245,242,238,0.4)', fontFamily: 'Space Grotesk', whiteSpace: 'nowrap' }}
+                  >
+                    {item.note}
+                  </span>
+                </div>
+              ))}
+
+              {/* Bottom note in code style */}
+              <p
+                className="mt-8 text-xs leading-relaxed"
+                style={{
+                  fontFamily: 'JetBrains Mono, monospace',
+                  color: 'rgba(245,242,238,0.35)',
+                  fontSize: '11px',
+                }}
+              >
+                {`// também: Claude Code, Gemini, n8n, Docker, Railway`}
+              </p>
+            </div>
+
+            {/* Small availability note */}
+            <div
+              className="mt-6 rounded-2xl px-6 py-4"
+              style={{ background: 'var(--gold-light)', border: '1px solid rgba(184,135,58,0.2)' }}
+            >
+              <p className="text-sm font-semibold" style={{ color: 'var(--gold)', fontFamily: 'Space Grotesk' }}>
+                ✦ Disponível para projetos e oportunidades
+              </p>
+              <p className="text-xs mt-1" style={{ color: 'var(--ink-muted)', fontFamily: 'Space Grotesk' }}>
+                Estágio, vagas júnior e freelance em full stack + IA.
+              </p>
+            </div>
+          </div>
         </div>
+
       </div>
+      <div className="mt-24 section-rule" />
     </section>
   )
 }

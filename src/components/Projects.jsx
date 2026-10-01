@@ -1,216 +1,275 @@
-import { useState } from 'react'
-import { ExternalLink, Calendar, Check, ArrowUpRight, Sparkles, Layers, ShieldCheck, Cpu, Code2 } from 'lucide-react'
+import { useEffect, useRef } from 'react'
+import { ArrowUpRight, ExternalLink } from 'lucide-react'
 import { GithubIcon } from './Icons'
 import { projects } from '../data/portfolioData'
 
-const filterCategories = [
-  { id: 'all', label: 'Todos os projetos' },
-  { id: 'ia', label: 'Inteligência Artificial' },
-  { id: 'fullstack', label: 'Full Stack & Web' },
-  { id: 'backend', label: 'Back-end & APIs' },
+// Each project gets a distinct color palette
+const projectThemes = [
+  { bg: '#f5ead4', accent: '#b8873a', label: 'gold',  accentText: '#7a5a20' },  // CorrEnem — warm gold
+  { bg: '#d4e8de', accent: '#3a6b52', label: 'sage',  accentText: '#2a4d3a' },  // AgroBot — sage green
+  { bg: '#d4ddf0', accent: '#243358', label: 'navy',  accentText: '#1a2640' },  // BemCicatri — navy
+  { bg: '#f0ddd9', accent: '#c8523a', label: 'rust',  accentText: '#8a3828' },  // Album — rust
 ]
 
 export default function Projects() {
-  const [activeFilter, setActiveFilter] = useState('all')
-
-  const filteredProjects = projects.filter((project) => {
-    if (activeFilter === 'all') return true
-    if (activeFilter === 'ia') return project.category.toLowerCase().includes('ia')
-    if (activeFilter === 'fullstack') return project.stack.includes('React 19') || project.category.toLowerCase().includes('full stack') || project.id === 'agrobot' || project.id === 'bemcicatri'
-    if (activeFilter === 'backend') return project.stack.includes('FastAPI') || project.category.toLowerCase().includes('back-end')
-    return true
-  })
+  useEffect(() => {
+    const els = document.querySelectorAll('.reveal')
+    const obs = new IntersectionObserver(
+      (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') }),
+      { threshold: 0.08 }
+    )
+    els.forEach(el => obs.observe(el))
+    return () => obs.disconnect()
+  }, [])
 
   return (
-    <section id="projetos" className="relative scroll-mt-24 border-t border-slate-800/80 py-24 lg:py-32">
+    <section id="projetos" className="relative scroll-mt-24 py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        
-        {/* Section Header */}
-        <div className="mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
-          <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-amber-400/20 bg-amber-400/10 px-3 py-1 font-mono text-xs font-medium text-amber-300">
-              <Sparkles size={13} />
-              <span>02 / PROJETOS EM DESTAQUE</span>
-            </div>
-            
-            <h2 className="mt-4 font-display text-3xl font-bold tracking-tight text-white sm:text-5xl">
-              Projetos reais com impacto e arquitetura sólida.
-            </h2>
-            
-            <p className="mt-4 text-base sm:text-lg leading-relaxed text-slate-300">
-              Aplicações completas com deploy ativo, resolvendo problemas reais através de interfaces modernas, APIs assíncronas e inteligência artificial aplicada.
-            </p>
-          </div>
 
-          {/* Filter Pills */}
-          <div className="flex flex-wrap gap-1.5 rounded-2xl border border-slate-800 bg-slate-900/90 p-1.5 backdrop-blur-md">
-            {filterCategories.map(({ id, label }) => (
-              <button
-                key={id}
-                onClick={() => setActiveFilter(id)}
-                className={`rounded-xl px-4 py-2 text-xs font-semibold transition-all duration-200 ${
-                  activeFilter === id
-                    ? 'bg-amber-400 text-slate-950 shadow-md shadow-amber-400/20 font-bold'
-                    : 'text-slate-400 hover:bg-slate-800 hover:text-white'
-                }`}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
+        {/* — Section header */}
+        <div className="reveal mb-20 flex flex-col gap-4 max-w-2xl">
+          <p
+            className="text-xs font-semibold tracking-widest uppercase"
+            style={{ color: 'var(--accent)', fontFamily: 'Space Grotesk' }}
+          >
+            Projetos em destaque
+          </p>
+          <h2
+            className="leading-tight"
+            style={{
+              fontFamily: 'Fraunces, Georgia, serif',
+              fontSize: 'clamp(2rem, 4vw, 3.2rem)',
+              fontWeight: 700,
+              color: 'var(--ink)',
+              letterSpacing: '-0.02em',
+            }}
+          >
+            Aplicações reais, código em produção.
+          </h2>
+          <p style={{ fontFamily: 'Space Grotesk', color: 'var(--ink-muted)', fontSize: '1rem', lineHeight: 1.7 }}>
+            Cada projeto resolve um problema concreto — da educação à agro, da saúde ao mercado.
+          </p>
         </div>
 
-        {/* Projects Grid */}
-        <div className="grid gap-8 lg:grid-cols-2">
-          {filteredProjects.map((project) => {
+        {/* — Projects list: alternating layout */}
+        <div className="space-y-10">
+          {projects.map((project, idx) => {
+            const theme = projectThemes[idx % projectThemes.length]
+            const isEven = idx % 2 === 0
             const hasDeploy = Boolean(project.deploy)
+            const isFeatured = project.id === 'correnem'
+            const mockupSrc = project.id === 'correnem' ? '/correnem.jpg' : project.id === 'agrobot' ? '/agrobot.jpg' : null
 
             return (
               <article
                 key={project.id}
-                className="group relative flex flex-col justify-between rounded-3xl border border-slate-800 bg-gradient-to-b from-slate-900/90 to-slate-950/90 p-7 sm:p-9 transition-all duration-300 hover:border-slate-700 hover:shadow-2xl hover:shadow-black/40 backdrop-blur-xl"
+                className="reveal overflow-hidden rounded-3xl"
+                style={{
+                  background: theme.bg,
+                  border: '1px solid rgba(0,0,0,0.06)',
+                  animationDelay: `${idx * 80}ms`,
+                }}
               >
-                <div>
-                  {/* Top Bar: Number, Badge, Status */}
-                  <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800/80 pb-5">
-                    <div className="flex items-center gap-3">
-                      <span className="font-mono text-sm font-bold text-amber-400">
-                        {project.number}
-                      </span>
-                      <span className="h-1.5 w-1.5 rounded-full bg-slate-700" />
-                      <span className="inline-flex items-center gap-1.5 font-mono text-xs font-medium text-slate-400">
-                        <Calendar size={13} className="text-slate-500" />
-                        {project.period}
-                      </span>
-                    </div>
-
-                    <div className="flex items-center gap-2">
-                      <span className="rounded-full border border-slate-700 bg-slate-800/90 px-3 py-1 font-mono text-[11px] font-semibold text-slate-200">
-                        {project.badge}
-                      </span>
-                      {hasDeploy ? (
-                        <span className="inline-flex items-center gap-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 py-1 font-mono text-[10px] font-medium text-emerald-400">
-                          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                          Online
+                <div
+                  className={`grid gap-0 ${isFeatured ? 'lg:grid-cols-[1.1fr_0.9fr]' : 'lg:grid-cols-2'} ${!isEven ? 'lg:[&>*:first-child]:order-last' : ''}`}
+                >
+                  {/* Text side */}
+                  <div className="p-8 sm:p-10 lg:p-12 flex flex-col justify-between">
+                    <div>
+                      {/* Category + status */}
+                      <div className="flex items-center gap-3 mb-6">
+                        <span
+                          className="text-xs font-semibold tracking-wide uppercase"
+                          style={{ color: theme.accentText, fontFamily: 'Space Grotesk' }}
+                        >
+                          {project.category}
                         </span>
-                      ) : (
-                        <span className="inline-flex items-center gap-1 rounded-full border border-slate-700 bg-slate-800 px-2.5 py-1 font-mono text-[10px] font-medium text-slate-400">
-                          Sob Demanda
-                        </span>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Title & Subtitle */}
-                  <h3 className="mt-6 font-display text-2xl font-bold tracking-tight text-white group-hover:text-amber-300 transition-colors sm:text-3xl">
-                    {project.title}
-                  </h3>
-                  
-                  <p className="mt-1 font-mono text-xs font-semibold text-slate-400">
-                    {project.subtitle}
-                  </p>
-
-                  <p className="mt-4 text-sm leading-relaxed text-slate-300">
-                    {project.description}
-                  </p>
-
-                  {/* Interesting Metrics / Highlights Showcase */}
-                  {project.metrics && (
-                    <div className="mt-5 grid grid-cols-3 gap-2 rounded-2xl border border-slate-800/80 bg-slate-950/60 p-3 text-center">
-                      {project.metrics.map((metric, mIdx) => (
-                        <div key={mIdx} className="flex flex-col">
-                          <span className="font-mono text-xs font-bold text-amber-400">
-                            {metric.value}
+                        {hasDeploy && (
+                          <span
+                            className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold"
+                            style={{ background: 'rgba(255,255,255,0.7)', color: theme.accentText }}
+                          >
+                            <span className="h-1.5 w-1.5 rounded-full animate-pulse" style={{ background: theme.accent }} />
+                            Online
                           </span>
-                          <span className="text-[10px] font-medium text-slate-400">
-                            {metric.label}
+                        )}
+                        {!hasDeploy && (
+                          <span
+                            className="rounded-full px-3 py-1 text-xs font-semibold"
+                            style={{ background: 'rgba(255,255,255,0.5)', color: 'var(--ink-muted)' }}
+                          >
+                            Deploy clínico
                           </span>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-
-                  {/* Problem Solved Callout */}
-                  {project.problemSolved && (
-                    <div className="mt-4 rounded-xl border border-slate-800/80 bg-slate-900/60 p-3.5">
-                      <div className="flex items-center gap-1.5 font-mono text-[11px] font-semibold text-slate-300">
-                        <ShieldCheck size={14} className="text-amber-400" />
-                        <span>Problema Solucionado:</span>
+                        )}
                       </div>
-                      <p className="mt-1 text-xs text-slate-400 leading-normal">
-                        {project.problemSolved}
+
+                      {/* Title */}
+                      <h3
+                        className="leading-none tracking-tight"
+                        style={{
+                          fontFamily: 'Fraunces, Georgia, serif',
+                          fontSize: isFeatured ? 'clamp(2.2rem, 4vw, 3.2rem)' : 'clamp(1.8rem, 3vw, 2.5rem)',
+                          fontWeight: 800,
+                          color: 'var(--ink)',
+                          letterSpacing: '-0.03em',
+                        }}
+                      >
+                        {project.title}
+                      </h3>
+
+                      {/* Subtitle */}
+                      <p
+                        className="mt-2 font-medium leading-snug"
+                        style={{
+                          fontFamily: 'Fraunces',
+                          fontStyle: 'italic',
+                          color: theme.accentText,
+                          fontSize: '1rem',
+                        }}
+                      >
+                        {project.subtitle}
                       </p>
+
+                      {/* Description */}
+                      <p
+                        className="mt-5 leading-relaxed"
+                        style={{
+                          fontFamily: 'Space Grotesk',
+                          fontSize: '0.93rem',
+                          color: 'var(--ink-muted)',
+                          lineHeight: 1.75,
+                        }}
+                      >
+                        {project.description}
+                      </p>
+
+                      {/* Highlights — simple list */}
+                      <ul className="mt-6 space-y-2">
+                        {project.highlights.slice(0, 3).map((h, i) => (
+                          <li key={i} className="flex items-start gap-2.5 text-sm" style={{ color: 'var(--ink-muted)', fontFamily: 'Space Grotesk' }}>
+                            <span
+                              className="mt-1.5 h-1.5 w-1.5 rounded-full shrink-0"
+                              style={{ background: theme.accent }}
+                            />
+                            {h}
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                  )}
 
-                  {/* Engineering Highlights */}
-                  <div className="mt-5 space-y-2 border-t border-slate-800/80 pt-4">
-                    <p className="font-mono text-[11px] font-semibold uppercase tracking-wider text-slate-400">
-                      Destaques Técnicos & Entrega:
-                    </p>
-                    <ul className="space-y-2">
-                      {project.highlights.map((highlight, hIdx) => (
-                        <li key={hIdx} className="flex items-start gap-2.5 text-xs text-slate-300">
-                          <Check size={14} className="mt-0.5 shrink-0 text-amber-400" />
-                          <span>{highlight}</span>
-                        </li>
-                      ))}
-                    </ul>
+                    {/* Stack chips + CTAs */}
+                    <div className="mt-8">
+                      <div className="flex flex-wrap gap-1.5 mb-6">
+                        {project.stack.slice(0, 6).map(tech => (
+                          <span
+                            key={tech}
+                            className="rounded-full px-3 py-1 text-xs font-medium"
+                            style={{
+                              background: 'rgba(255,255,255,0.6)',
+                              color: 'var(--ink)',
+                              border: '1px solid rgba(0,0,0,0.1)',
+                              fontFamily: 'JetBrains Mono, monospace',
+                            }}
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+
+                      <div className="flex flex-wrap gap-3">
+                        {hasDeploy ? (
+                          <a
+                            href={project.deploy}
+                            target="_blank" rel="noreferrer"
+                            className="group inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-semibold transition-all"
+                            style={{ background: theme.accent, color: '#fff', fontFamily: 'Space Grotesk' }}
+                          >
+                            Acessar ao vivo
+                            <ArrowUpRight size={15} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                          </a>
+                        ) : (
+                          <a
+                            href="#contato"
+                            className="inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-semibold transition-all"
+                            style={{ background: 'rgba(255,255,255,0.7)', color: 'var(--ink)', border: '1px solid rgba(0,0,0,0.12)', fontFamily: 'Space Grotesk' }}
+                          >
+                            Pedir demonstração
+                          </a>
+                        )}
+                        <a
+                          href={project.github}
+                          target="_blank" rel="noreferrer"
+                          className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-all"
+                          style={{ background: 'rgba(255,255,255,0.55)', color: 'var(--ink)', border: '1px solid rgba(0,0,0,0.1)', fontFamily: 'Space Grotesk' }}
+                        >
+                          <GithubIcon size={14} />
+                          Código
+                        </a>
+                      </div>
+                    </div>
                   </div>
-                </div>
 
-                {/* Bottom Bar: Stack & Action Buttons */}
-                <div className="mt-8 border-t border-slate-800/80 pt-6">
-                  {/* Tech Stack Pills */}
-                  <div className="flex flex-wrap gap-1.5">
-                    {project.stack.map((tech) => (
-                      <span
-                        key={tech}
-                        className="rounded-lg border border-slate-800 bg-slate-950/80 px-2.5 py-1 font-mono text-[11px] font-medium text-slate-300 hover:border-slate-700 transition"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Action Buttons */}
-                  <div className="mt-6 flex flex-wrap items-center gap-3">
-                    {hasDeploy ? (
-                      <a
-                        href={project.deploy}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="group/btn inline-flex items-center gap-2 rounded-xl bg-amber-400 px-5 py-2.5 text-xs font-bold text-slate-950 transition hover:bg-amber-300 shadow-md shadow-amber-400/10"
-                      >
-                        <span>Acessar no ar</span>
-                        <ArrowUpRight size={15} className="transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
-                      </a>
+                  {/* Visual side: mockup or color block */}
+                  <div
+                    className="relative flex items-end justify-center overflow-hidden"
+                    style={{
+                      minHeight: '320px',
+                      background: `linear-gradient(135deg, ${theme.bg} 0%, ${theme.accent}18 100%)`,
+                    }}
+                  >
+                    {mockupSrc ? (
+                      <img
+                        src={mockupSrc}
+                        alt={`Mockup do ${project.title}`}
+                        className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                        style={{ display: 'block' }}
+                      />
                     ) : (
-                      <a
-                        href="#contato"
-                        className="inline-flex items-center gap-2 rounded-xl border border-slate-700 bg-slate-800 px-5 py-2.5 text-xs font-bold text-slate-200 transition hover:bg-slate-700 hover:text-white"
-                      >
-                        <span>Pedir demonstração</span>
-                        <ExternalLink size={14} />
-                      </a>
+                      /* Typographic placeholder for projects without mockup */
+                      <div className="p-10 flex flex-col justify-center items-center h-full w-full">
+                        <p
+                          className="text-center leading-none"
+                          style={{
+                            fontFamily: 'Fraunces',
+                            fontSize: 'clamp(5rem, 12vw, 9rem)',
+                            fontWeight: 800,
+                            color: `${theme.accent}30`,
+                            letterSpacing: '-0.04em',
+                            userSelect: 'none',
+                          }}
+                        >
+                          {project.title.slice(0, 3).toUpperCase()}
+                        </p>
+                        <p className="mt-4 text-center text-sm font-medium" style={{ color: theme.accentText, fontFamily: 'Space Grotesk' }}>
+                          {project.badge}
+                        </p>
+                        {/* Metrics mini display */}
+                        <div className="mt-6 grid grid-cols-3 gap-4 w-full max-w-xs">
+                          {project.metrics?.map((m, i) => (
+                            <div key={i} className="text-center">
+                              <p
+                                className="font-bold text-sm leading-tight"
+                                style={{ color: theme.accent, fontFamily: 'Fraunces' }}
+                              >
+                                {m.value}
+                              </p>
+                              <p className="text-[10px] mt-0.5" style={{ color: theme.accentText, fontFamily: 'Space Grotesk' }}>
+                                {m.label}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
                     )}
-
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-2 rounded-xl border border-slate-800 bg-slate-900 px-4 py-2.5 text-xs font-semibold text-slate-300 transition hover:border-slate-600 hover:text-white"
-                    >
-                      <GithubIcon size={15} />
-                      <span>Ver Código</span>
-                    </a>
                   </div>
                 </div>
               </article>
             )
           })}
         </div>
+
       </div>
+      <div className="mt-24 section-rule" />
     </section>
   )
 }

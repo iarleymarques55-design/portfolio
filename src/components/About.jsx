@@ -1,87 +1,124 @@
-import { BrainCircuit, GraduationCap, Building2, Sparkles } from 'lucide-react'
+import { useEffect } from 'react'
 
 export default function About() {
+  useEffect(() => {
+    const els = document.querySelectorAll('.reveal')
+    const obs = new IntersectionObserver(
+      (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') }),
+      { threshold: 0.1 }
+    )
+    els.forEach(el => obs.observe(el))
+    return () => obs.disconnect()
+  }, [])
+
   return (
-    <section id="sobre" className="relative scroll-mt-24 border-t border-slate-800/80 py-24 lg:py-32">
+    <section id="sobre" className="relative scroll-mt-24 py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        
-        {/* Section Header */}
-        <div className="mb-14 max-w-3xl">
-          <div className="inline-flex items-center gap-2 rounded-full border border-amber-400/20 bg-amber-400/10 px-3 py-1 font-mono text-xs font-medium text-amber-300">
-            <Sparkles size={13} />
-            <span>01 / TRAJETÓRIA & FOCO</span>
+
+        {/* — Layout: label + text left, photo right-ish */}
+        <div className="grid gap-16 lg:grid-cols-[1fr_420px] lg:gap-24 items-center">
+
+          {/* Left: story */}
+          <div className="reveal">
+
+            {/* Small label — no badge, just text */}
+            <p
+              className="mb-6 text-xs font-semibold tracking-widest uppercase"
+              style={{ color: 'var(--accent)', fontFamily: 'Space Grotesk' }}
+            >
+              Sobre mim
+            </p>
+
+            {/* Big serif headline */}
+            <h2
+              className="leading-tight"
+              style={{
+                fontFamily: 'Fraunces, Georgia, serif',
+                fontSize: 'clamp(2rem, 4vw, 3.5rem)',
+                fontWeight: 700,
+                color: 'var(--ink)',
+                letterSpacing: '-0.02em',
+              }}
+            >
+              Da formação técnica à construção de produtos reais.
+            </h2>
+
+            {/* Text body */}
+            <div
+              className="mt-8 space-y-5"
+              style={{ fontFamily: 'Space Grotesk', fontSize: '1rem', color: 'var(--ink-muted)', lineHeight: 1.8 }}
+            >
+              <p>
+                Comecei no desenvolvimento com o propósito de desvendar a engenharia por trás dos sistemas web e transformar ideias em aplicações funcionais. Cursando o 3º ano do <strong style={{ color: 'var(--ink)', fontWeight: 600 }}>Técnico em Informática</strong>, construí base sólida em lógica, estruturas de dados, orientação a objetos, bancos relacionais e arquitetura de software.
+              </p>
+              <p>
+                Sou <strong style={{ color: 'var(--ink)', fontWeight: 600 }}>estagiário de desenvolvimento na Distribuidora Irmãos Barreiro (Solar Coca-Cola)</strong>, criando interfaces com React e Tailwind, microsserviços em Python e PostgreSQL, e versionamento com Git e GitHub.
+              </p>
+              <p>
+                Como <strong style={{ color: 'var(--ink)', fontWeight: 600 }}>freelancer</strong>, entrego projetos de ponta a ponta, integrando IA (LLMs, OCR, visão computacional, n8n) para potencializar a produtividade e gerar valor real para o usuário.
+              </p>
+            </div>
+
+            {/* 3 compact facts */}
+            <div className="mt-10 grid grid-cols-3 gap-6">
+              {[
+                { label: 'Solar Coca-Cola', sub: 'Estágio' },
+                { label: '11 Certs.', sub: 'AWS · Anthropic · Google' },
+                { label: '3º Ano', sub: 'Técnico em Informática' },
+              ].map(item => (
+                <div key={item.label} style={{ borderTop: '2px solid var(--accent)' }} className="pt-3">
+                  <p className="text-sm font-semibold" style={{ color: 'var(--ink)', fontFamily: 'Space Grotesk' }}>
+                    {item.label}
+                  </p>
+                  <p className="text-xs mt-0.5" style={{ color: 'var(--ink-muted)', fontFamily: 'Space Grotesk' }}>
+                    {item.sub}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
 
-          <h2 className="mt-4 font-display text-3xl font-bold tracking-tight text-white sm:text-5xl">
-            Da formação técnica à construção de produtos reais.
-          </h2>
+          {/* Right: editorial pull quote in a colored block */}
+          <div className="reveal" style={{ animationDelay: '150ms' }}>
+            <div
+              className="relative rounded-3xl p-10"
+              style={{ background: 'var(--sage-light)' }}
+            >
+              <p
+                className="editorial-quote"
+                style={{ color: 'var(--sage)', fontSize: 'clamp(1.4rem, 2.5vw, 2rem)' }}
+              >
+                "Gosto de construir aplicações com React, Python e FastAPI, e uso IA quando ela facilita de&nbsp;verdade."
+              </p>
+              <div
+                className="mt-8 flex items-center gap-3"
+                style={{ borderTop: '1px solid rgba(58,107,82,0.25)', paddingTop: '1.5rem' }}
+              >
+                <div
+                  className="h-10 w-10 rounded-full flex items-center justify-center font-bold text-sm"
+                  style={{ background: 'var(--sage)', color: '#fff', fontFamily: 'Fraunces' }}
+                >
+                  IM
+                </div>
+                <div>
+                  <p className="text-sm font-semibold" style={{ color: 'var(--sage)', fontFamily: 'Space Grotesk' }}>Iarley Marques</p>
+                  <p className="text-xs" style={{ color: 'rgba(58,107,82,0.7)', fontFamily: 'Space Grotesk' }}>Desenvolvedor Full Stack</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Small decorative text beside block */}
+            <p
+              className="mt-6 text-xs leading-relaxed"
+              style={{ color: 'var(--ink-faint)', fontFamily: 'Space Grotesk', fontStyle: 'italic' }}
+            >
+              Cascavel, Ceará — aberto a vagas júnior, estágios e projetos freelance.
+            </p>
+          </div>
         </div>
 
-        <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
-          {/* Main Story */}
-          <div className="space-y-5 text-base leading-relaxed text-slate-300">
-            <p>
-              Comecei no desenvolvimento com o propósito de desvendar a engenharia por trás dos sistemas web e transformar ideias em aplicações funcionais de alta performance. Cursando o 3º ano do <strong className="font-semibold text-white">Técnico em Informática</strong>, construí uma base sólida em lógica, estruturas de dados, orientação a objetos, bancos relacionais e arquitetura de software.
-            </p>
-
-            <p>
-              Atualmente, sou <strong className="font-semibold text-white">estagiário de desenvolvimento de software na Distribuidora Irmãos Barreiro (filiada à Solar Coca-Cola)</strong>, atuando no ecossistema corporativo com criação de interfaces ágeis em React e Tailwind CSS, microsserviços em Python e PostgreSQL, além de versionamento e CI/CD com Git e GitHub.
-            </p>
-
-            <p>
-              Como <strong className="font-semibold text-white">desenvolvedor freelance</strong>, entrego projetos de ponta a ponta — do levantamento de requisitos ao deploy em nuvem (AWS e Railway). Integro fluxos com Inteligência Artificial (modelos LLM, visão computacional, OCR e automações com n8n) para potencializar a produtividade e agregar valor direto ao usuário final.
-            </p>
-          </div>
-
-          {/* Highlights Cards */}
-          <div className="space-y-4">
-            <div className="rounded-2xl border border-slate-800 bg-gradient-to-b from-slate-900/90 to-slate-950/90 p-6 transition-all duration-200 hover:border-slate-700">
-              <div className="flex items-center gap-3.5">
-                <div className="grid h-11 w-11 place-items-center rounded-xl border border-slate-700 bg-slate-800 text-amber-400">
-                  <Building2 size={20} />
-                </div>
-                <div>
-                  <h3 className="font-display font-bold text-white">Experiência Corporativa & Freelance</h3>
-                  <span className="font-mono text-xs text-slate-400">Distribuidora Irmãos Barreiro (Solar Coca-Cola) & Freelance</span>
-                </div>
-              </div>
-              <p className="mt-3 text-xs leading-relaxed text-slate-300">
-                Desenvolvimento full stack prático, atuando desde a experiência de interface até a arquitetura de dados e deploy conteinerizado.
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-slate-800 bg-gradient-to-b from-slate-900/90 to-slate-950/90 p-6 transition-all duration-200 hover:border-slate-700">
-              <div className="flex items-center gap-3.5">
-                <div className="grid h-11 w-11 place-items-center rounded-xl border border-slate-700 bg-slate-800 text-sky-400">
-                  <BrainCircuit size={20} />
-                </div>
-                <div>
-                  <h3 className="font-display font-bold text-white">Engenharia com IA Integrada</h3>
-                  <span className="font-mono text-xs text-slate-400">LLMs, Visão Computacional & n8n</span>
-                </div>
-              </div>
-              <p className="mt-3 text-xs leading-relaxed text-slate-300">
-                Aplicação de IA multimodal, pipelines de OCR para textos manuscritos e streaming em tempo real com Groq e modelos de linguagem.
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-slate-800 bg-gradient-to-b from-slate-900/90 to-slate-950/90 p-6 transition-all duration-200 hover:border-slate-700">
-              <div className="flex items-center gap-3.5">
-                <div className="grid h-11 w-11 place-items-center rounded-xl border border-slate-700 bg-slate-800 text-emerald-400">
-                  <GraduationCap size={20} />
-                </div>
-                <div>
-                  <h3 className="font-display font-bold text-white">Formação & Aprendizado Contínuo</h3>
-                  <span className="font-mono text-xs text-slate-400">Técnico em Informática · 11 Certificações</span>
-                </div>
-              </div>
-              <p className="mt-3 text-xs leading-relaxed text-slate-300">
-                Cursos e certificações reconhecidas por Anthropic (Claude), AWS, Google, Alura e Hashtag Treinamentos.
-              </p>
-            </div>
-          </div>
-        </div>
       </div>
+      <div className="mt-24 section-rule" />
     </section>
   )
 }
