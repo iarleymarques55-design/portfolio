@@ -10,16 +10,9 @@ import Footer from './components/Footer'
 
 export default function App() {
   return (
-    <div className="relative min-h-screen bg-[#090d16] text-slate-100 font-sans antialiased">
-      {/* Background Grid & Ambient Lighting */}
-      <div className="portfolio-grid pointer-events-none fixed inset-0 z-0 h-full w-full opacity-60" />
-      <div className="ambient-glow -top-40 left-1/4 h-[500px] w-[500px] bg-amber-500/10" />
-      <div className="ambient-glow top-[35%] -right-20 h-[600px] w-[600px] bg-sky-500/10" />
-      <div className="ambient-glow top-[70%] -left-20 h-[600px] w-[600px] bg-indigo-500/10" />
-
+    <div className="relative min-h-screen antialiased" style={{ background: 'var(--creme)', color: 'var(--tinta)' }}>
       <Navbar />
-
-      <main className="relative z-10">
+      <main>
         <Hero />
         <About />
         <Projects />
@@ -28,7 +21,6 @@ export default function App() {
         <Certifications />
         <Contact />
       </main>
-
       <Footer />
     </div>
   )

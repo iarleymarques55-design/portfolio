@@ -1,79 +1,98 @@
-import { Code2, Terminal, Database, BrainCircuit, Sparkles } from 'lucide-react'
+import { useEffect } from 'react'
 import { skillCategories } from '../data/portfolioData'
 
-const icons = {
-  'Front-end': Code2,
-  'Back-end e APIs': Terminal,
-  'Dados e nuvem': Database,
-  'Inteligência artificial': BrainCircuit,
-}
-
 export default function Skills() {
-  return (
-    <section id="habilidades" className="relative scroll-mt-24 border-t border-slate-800/80 py-24 lg:py-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        
-        {/* Section Header */}
-        <div className="mb-14 max-w-3xl">
-          <div className="inline-flex items-center gap-2 rounded-full border border-amber-400/20 bg-amber-400/10 px-3 py-1 font-mono text-xs font-medium text-amber-300">
-            <Sparkles size={13} />
-            <span>03 / STACK & HABILIDADES</span>
-          </div>
+  useEffect(() => {
+    const els = document.querySelectorAll('.reveal')
+    const obs = new IntersectionObserver(
+      (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible') }),
+      { threshold: 0.1 }
+    )
+    els.forEach(el => obs.observe(el))
+    return () => obs.disconnect()
+  }, [])
 
-          <h2 className="mt-4 font-display text-3xl font-bold tracking-tight text-white sm:text-5xl">
-            Tecnologias dominadas na prática.
+  return (
+    <section id="habilidades" className="relative w-full scroll-mt-24 py-24 lg:py-32" style={{ background: 'var(--tinta)' }}>
+      <div className="mx-auto max-w-7xl px-6 lg:px-10">
+
+        {/* — Section Header: Aligned Left with Italic Accent */}
+        <div className="reveal mb-16 max-w-3xl text-left">
+          <p
+            className="text-xs font-semibold tracking-widest uppercase"
+            style={{ color: 'var(--accent)', fontFamily: 'Space Grotesk' }}
+          >
+            Habilidades & Ferramentas
+          </p>
+          <h2
+            className="mt-3 leading-tight text-white"
+            style={{
+              fontFamily: 'Fraunces, Georgia, serif',
+              fontSize: 'clamp(2.2rem, 4.5vw, 3.8rem)',
+              fontWeight: 700,
+              letterSpacing: '-0.02em',
+            }}
+          >
+            Competências técnicas & <span className="italic" style={{ color: 'var(--accent)', fontWeight: 400 }}>stack de engenharia</span>.
           </h2>
-          
-          <p className="mt-4 text-base sm:text-lg leading-relaxed text-slate-300">
-            Do front-end ao banco de dados relacional, APIs assíncronas e integração com modelos de IA de última geração.
+          <p
+            className="mt-4 text-base sm:text-lg leading-relaxed"
+            style={{ fontFamily: 'Space Grotesk', color: 'var(--ink-dark-muted)', fontSize: '1.05rem' }}
+          >
+            Domínio prático de ponta a ponta: da modelagem de interfaces e APIs assíncronas ao deploy com modelos e agentes de IA integrados.
           </p>
         </div>
 
-        {/* Categories Grid */}
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {skillCategories.map((category) => {
-            const Icon = icons[category.title] || Code2
-
-            return (
-              <div
-                key={category.title}
-                className="group flex flex-col justify-between rounded-3xl border border-slate-800 bg-gradient-to-b from-slate-900/90 to-slate-950/90 p-6 transition-all duration-300 hover:border-slate-700 hover:shadow-xl backdrop-blur-xl"
-              >
-                <div>
-                  <div className="flex items-center justify-between">
-                    <div className="grid h-12 w-12 place-items-center rounded-2xl border border-slate-700 bg-slate-800 text-amber-400 shadow-inner group-hover:scale-105 transition-transform">
-                      <Icon size={22} />
-                    </div>
-                    <span className="rounded-full border border-slate-700 bg-slate-800/80 px-3 py-1 font-mono text-[10px] font-semibold uppercase tracking-wider text-slate-300">
-                      {category.badge}
-                    </span>
-                  </div>
-
-                  <h3 className="mt-6 font-display text-xl font-bold text-white group-hover:text-amber-300 transition-colors">
-                    {category.title}
-                  </h3>
-                  
-                  <p className="mt-2 min-h-[40px] text-xs leading-relaxed text-slate-400">
-                    {category.description}
-                  </p>
-
-                  {/* Skills List */}
-                  <div className="mt-6 space-y-2 border-t border-slate-800/80 pt-5">
-                    {category.items.map((item, idx) => (
-                      <div
-                        key={idx}
-                        className="flex items-center justify-between rounded-xl border border-slate-800/80 bg-slate-950/60 px-3.5 py-2.5 text-xs transition hover:border-slate-700"
-                      >
-                        <span className="font-semibold text-slate-200">{item.name}</span>
-                        <span className="font-mono text-[10px] font-medium text-amber-400/90">{item.level}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+        {/* — 4-Column Broad Grid for Categories */}
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          {skillCategories.map((cat, idx) => (
+            <div
+              key={cat.title}
+              className="reveal rounded-2xl p-6 transition-all duration-300"
+              style={{
+                background: 'var(--bg-dark-card)',
+                border: '1px solid #2d2621',
+                boxShadow: '0 8px 24px rgba(0,0,0,0.2)',
+                animationDelay: `${idx * 60}ms`,
+              }}
+            >
+              {/* Category Header */}
+              <div className="mb-4">
+                <span
+                  className="text-[11px] font-bold tracking-wider uppercase"
+                  style={{ color: 'var(--accent)', fontFamily: 'Space Grotesk' }}
+                >
+                  {cat.badge || 'Área'}
+                </span>
+                <h3
+                  className="mt-1 text-lg font-bold text-white"
+                  style={{ fontFamily: 'Space Grotesk' }}
+                >
+                  {cat.title}
+                </h3>
+                <p
+                  className="mt-1 text-xs leading-relaxed"
+                  style={{ color: 'var(--ink-dark-muted)', fontFamily: 'Space Grotesk' }}
+                >
+                  {cat.description}
+                </p>
               </div>
-            )
-          })}
+
+              {/* Tag Cloud with Solid Background */}
+              <div className="flex flex-wrap gap-2 pt-3" style={{ borderTop: '1px solid #332b25' }}>
+                {cat.items.map(item => (
+                  <span
+                    key={item.name}
+                    className="skill-tag-dark"
+                  >
+                    {item.name}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
+
       </div>
     </section>
   )
