@@ -1,137 +1,142 @@
-import { useState, useEffect } from 'react'
-import { Award, Check, ExternalLink } from 'lucide-react'
+import { useEffect } from 'react'
+import { Check } from 'lucide-react'
 import { certifications } from '../data/portfolioData'
 
-const filterCategories = [
-  { id: 'all', label: 'Todas (11)' },
-  { id: 'IA', label: 'Inteligência Artificial (5)' },
-  { id: 'Cloud', label: 'Nuvem & AWS' },
-  { id: 'Dev', label: 'Programação' },
-  { id: 'Gestão', label: 'Gestão & Outros' },
-]
-
 export default function Certifications() {
-  const [activeFilter, setActiveFilter] = useState('all')
-
   useEffect(() => {
     const els = document.querySelectorAll('.reveal')
     const obs = new IntersectionObserver(
       (entries) => entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('visible') }),
-      { threshold: 0.1 }
+      { threshold: 0.08 }
     )
     els.forEach((el) => obs.observe(el))
     return () => obs.disconnect()
-  }, [activeFilter])
+  }, [])
 
-  const filteredCerts = certifications.filter((cert) => {
-    if (activeFilter === 'all') return true
-    if (activeFilter === 'Gestão') return cert.category === 'Gestão' || cert.category === 'Geral'
-    return cert.category === activeFilter
-  })
+  // 4 Top Highlights with rich solid card presentation
+  const featuredIds = ['anthropic-claude', 'anthropic-fluency', 'aws-cloud', 'hashtag-n8n']
+  const featuredCerts = certifications.filter(c => featuredIds.includes(c.id))
+  // The rest in a compact high-density editorial list
+  const compactCerts = certifications.filter(c => !featuredIds.includes(c.id))
+
+  // Cores sólidas sem nenhum azul: Areia, Verde, Terracota e Tinta
+  const cardThemes = [
+    {
+      bg: '#E9DFCB',
+      border: '#D4C7AE',
+      titleColor: '#16120F',
+      issuerColor: '#524332',
+      badgeBg: '#FAF5EC',
+      badgeColor: '#524332',
+      dateColor: '#7A6854',
+      checkColor: '#1B4D2E',
+    },
+    {
+      bg: '#2F4A3A',
+      border: '#243A2D',
+      titleColor: '#FFFFFF',
+      issuerColor: '#D2E6DA',
+      badgeBg: 'rgba(255,255,255,0.16)',
+      badgeColor: '#D2E6DA',
+      dateColor: '#A3C8B2',
+      checkColor: '#7EE0A3',
+    },
+    {
+      bg: '#C8553D',
+      border: '#A9432E',
+      titleColor: '#FFFFFF',
+      issuerColor: '#FBE8E4',
+      badgeBg: 'rgba(255,255,255,0.16)',
+      badgeColor: '#FFFFFF',
+      dateColor: '#F7CDC4',
+      checkColor: '#FFFFFF',
+    },
+    {
+      bg: '#16120F',
+      border: '#29221C',
+      titleColor: '#F4EFE8',
+      issuerColor: '#D4C8B8',
+      badgeBg: 'rgba(255,255,255,0.12)',
+      badgeColor: '#E9DFCB',
+      dateColor: '#A69B8D',
+      checkColor: '#7EE0A3',
+    },
+  ]
 
   return (
-    <section id="certificados" className="relative scroll-mt-24 py-24 lg:py-32">
+    <section id="certificados" className="relative w-full scroll-mt-24 py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        
-        {/* Section Header */}
-        <div className="reveal mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end">
-          <div className="max-w-2xl">
-            <p
-              className="text-xs font-semibold tracking-widest uppercase"
-              style={{ color: 'var(--accent)', fontFamily: 'Space Grotesk' }}
-            >
-              Aprendizado contínuo
-            </p>
 
-            <h2
-              className="mt-3 leading-tight"
-              style={{
-                fontFamily: 'Fraunces, Georgia, serif',
-                fontSize: 'clamp(2rem, 4vw, 3.5rem)',
-                fontWeight: 700,
-                color: 'var(--ink)',
-                letterSpacing: '-0.02em',
-              }}
-            >
-              Cursos & Certificações.
-            </h2>
-            
-            <p
-              className="mt-4 text-base leading-relaxed"
-              style={{ fontFamily: 'Space Grotesk', color: 'var(--ink-muted)' }}
-            >
-              Especializações práticas emitidas por <strong style={{ color: 'var(--ink)' }}>Anthropic (Claude Code)</strong>, <strong style={{ color: 'var(--ink)' }}>Amazon Web Services (AWS)</strong>, <strong style={{ color: 'var(--ink)' }}>Google</strong>, Alura e Hashtag.
-            </p>
-          </div>
+        {/* Section Header: Aligned Left with Italic Word */}
+        <div className="reveal mb-14 max-w-2xl text-left">
+          <p
+            className="text-xs font-semibold tracking-widest uppercase"
+            style={{ color: 'var(--terracota)', fontFamily: 'Space Grotesk' }}
+          >
+            Aprendizado contínuo
+          </p>
 
-          {/* Filter Pills */}
-          <div
-            className="flex flex-wrap gap-1.5 rounded-full p-1.5 self-start md:self-end"
+          <h2
+            className="mt-3 leading-tight"
             style={{
-              background: '#fff',
-              border: '1px solid #e2dbd1',
+              fontFamily: 'Fraunces, Georgia, serif',
+              fontSize: 'clamp(2.2rem, 4.5vw, 3.8rem)',
+              fontWeight: 700,
+              color: 'var(--tinta)',
+              letterSpacing: '-0.02em',
             }}
           >
-            {filterCategories.map(({ id, label }) => {
-              const active = activeFilter === id
-              return (
-                <button
-                  key={id}
-                  onClick={() => setActiveFilter(id)}
-                  className="rounded-full px-4 py-2 text-xs font-semibold transition-all duration-200 cursor-pointer"
-                  style={{
-                    fontFamily: 'Space Grotesk',
-                    background: active ? 'var(--ink)' : 'transparent',
-                    color: active ? '#fff' : 'var(--ink-muted)',
-                  }}
-                >
-                  {label}
-                </button>
-              )
-            })}
-          </div>
+            Qualificações & <span className="italic" style={{ color: 'var(--terracota)', fontWeight: 400 }}>certificações</span>.
+          </h2>
+
+          <p
+            className="mt-4 text-base sm:text-lg leading-relaxed"
+            style={{ fontFamily: 'Space Grotesk', color: 'var(--texto-suave)', fontSize: '1.05rem' }}
+          >
+            Especializações em inteligência artificial, engenharia de nuvem e arquitetura de software emitidas por referências globais.
+          </p>
         </div>
 
-        {/* Certifications Grid */}
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {filteredCerts.map((cert, index) => {
-            const isHighlight = cert.highlight
+        {/* 4 Featured Certificates in Solid Colored Cards */}
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 mb-14">
+          {featuredCerts.map((cert, index) => {
+            const theme = cardThemes[index % cardThemes.length]
             return (
               <div
                 key={cert.id}
-                className="reveal group flex flex-col justify-between rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1"
+                className="reveal flex flex-col justify-between rounded-2xl p-7 transition-all duration-300 hover:-translate-y-1.5 shadow-md"
                 style={{
-                  background: isHighlight ? '#ffffff' : '#faf8f5',
-                  border: isHighlight ? '1.5px solid var(--accent)' : '1px solid #e8e2d9',
-                  boxShadow: isHighlight ? '0 10px 30px -10px rgba(184, 80, 52, 0.08)' : '0 2px 8px rgba(0,0,0,0.02)',
+                  background: theme.bg,
+                  border: `1.5px solid ${theme.border}`,
+                  animationDelay: `${index * 80}ms`,
                 }}
               >
                 <div>
                   <div className="flex items-center justify-between">
                     <span
-                      className="text-xs font-semibold"
+                      className="rounded-full px-3 py-0.5 text-xs font-bold uppercase tracking-wider"
                       style={{
-                        fontFamily: 'Fraunces, Georgia, serif',
-                        color: isHighlight ? 'var(--accent)' : 'var(--ink-faint)',
-                        fontSize: '1rem',
+                        background: theme.badgeBg,
+                        color: theme.badgeColor,
+                        fontFamily: 'Space Grotesk',
                       }}
                     >
-                      {index + 1 < 10 ? `0${index + 1}` : index + 1}
+                      Destaque
                     </span>
-
                     <span
-                      className="text-xs font-medium"
-                      style={{ fontFamily: 'Space Grotesk', color: 'var(--ink-faint)' }}
+                      className="text-xs font-semibold"
+                      style={{ color: theme.dateColor, fontFamily: 'Space Grotesk' }}
                     >
                       {cert.date}
                     </span>
                   </div>
 
+                  {/* Title in sans-serif semibold */}
                   <h3
-                    className="mt-4 text-base font-bold transition-colors"
+                    className="mt-5 text-lg font-bold"
                     style={{
                       fontFamily: 'Space Grotesk, sans-serif',
-                      color: 'var(--ink)',
+                      color: theme.titleColor,
                       lineHeight: 1.35,
                     }}
                   >
@@ -139,8 +144,8 @@ export default function Certifications() {
                   </h3>
 
                   <p
-                    className="mt-1.5 text-xs font-medium"
-                    style={{ fontFamily: 'Space Grotesk', color: 'var(--ink-muted)' }}
+                    className="mt-1.5 text-sm font-semibold"
+                    style={{ fontFamily: 'Space Grotesk', color: theme.issuerColor }}
                   >
                     {cert.issuer}
                   </p>
@@ -148,23 +153,15 @@ export default function Certifications() {
 
                 <div
                   className="mt-6 flex items-center justify-between pt-4"
-                  style={{ borderTop: '1px solid #eee8e0' }}
+                  style={{ borderTop: `1px solid ${theme.border}` }}
                 >
                   <span
-                    className="rounded-full px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider"
-                    style={{
-                      fontFamily: 'Space Grotesk',
-                      background: isHighlight ? 'var(--accent-light)' : '#f0ece4',
-                      color: isHighlight ? 'var(--accent)' : 'var(--ink-muted)',
-                    }}
+                    className="text-xs font-semibold"
+                    style={{ color: theme.issuerColor, fontFamily: 'Space Grotesk' }}
                   >
-                    {isHighlight ? 'Destaque' : cert.category}
+                    {cert.category}
                   </span>
-
-                  <div
-                    className="flex items-center gap-1.5 text-xs font-medium"
-                    style={{ fontFamily: 'Space Grotesk', color: '#166534' }}
-                  >
+                  <div className="flex items-center gap-1.5 text-xs font-bold" style={{ color: theme.checkColor }}>
                     <Check size={14} />
                     <span>Concluído</span>
                   </div>
@@ -174,9 +171,79 @@ export default function Certifications() {
           })}
         </div>
 
-      </div>
+        {/* Compact List for the Remaining Certifications */}
+        <div className="reveal">
+          <div className="mb-4 flex items-center justify-between">
+            <h4
+              className="text-sm font-bold tracking-widest uppercase"
+              style={{ color: 'var(--tinta)', fontFamily: 'Space Grotesk' }}
+            >
+              Demais Certificações ({compactCerts.length})
+            </h4>
+            <span
+              className="text-xs font-medium"
+              style={{ color: 'var(--ink-faint)', fontFamily: 'Space Grotesk' }}
+            >
+              Alura · Google · Hashtag · EF SET · Bradesco
+            </span>
+          </div>
 
-      <div className="mt-20 section-rule" />
+          <div
+            className="rounded-2xl divide-y overflow-hidden shadow-sm"
+            style={{
+              background: '#ffffff',
+              border: '1px solid #DCD3C5',
+              borderColor: '#DCD3C5',
+            }}
+          >
+            {compactCerts.map((cert) => (
+              <div
+                key={cert.id}
+                className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 px-6 py-4.5 transition-colors hover:bg-[#FAF6F0]"
+                style={{ borderBottomColor: '#EDE5D8' }}
+              >
+                <div className="flex items-center gap-3">
+                  <span
+                    className="h-2 w-2 rounded-full shrink-0"
+                    style={{ background: 'var(--terracota)' }}
+                  />
+                  <div>
+                    <p
+                      className="text-base font-bold"
+                      style={{ color: 'var(--tinta)', fontFamily: 'Space Grotesk' }}
+                    >
+                      {cert.title}
+                    </p>
+                    <p
+                      className="text-xs font-medium"
+                      style={{ color: 'var(--texto-suave)', fontFamily: 'Space Grotesk' }}
+                    >
+                      {cert.issuer}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-4 sm:gap-6 self-start sm:self-auto pl-5 sm:pl-0">
+                  <span
+                    className="rounded-full px-3 py-0.5 text-xs font-semibold"
+                    style={{ background: 'var(--areia)', color: 'var(--tinta)', fontFamily: 'Space Grotesk' }}
+                  >
+                    {cert.category}
+                  </span>
+                  <span
+                    className="text-xs font-semibold min-w-[65px] text-right"
+                    style={{ color: 'var(--ink-faint)', fontFamily: 'Space Grotesk' }}
+                  >
+                    {cert.date}
+                  </span>
+                  <Check size={16} className="text-emerald-700 shrink-0" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
     </section>
   )
 }

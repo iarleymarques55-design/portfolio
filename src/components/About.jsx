@@ -12,7 +12,7 @@ export default function About() {
   }, [])
 
   return (
-    <section id="sobre" className="relative scroll-mt-24 py-24 lg:py-32">
+    <section id="sobre" className="relative w-full scroll-mt-24 py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
 
         {/* — Layout: label + text left, photo right-ish */}
@@ -34,19 +34,19 @@ export default function About() {
               className="leading-tight"
               style={{
                 fontFamily: 'Fraunces, Georgia, serif',
-                fontSize: 'clamp(2rem, 4vw, 3.5rem)',
+                fontSize: 'clamp(2.2rem, 4.5vw, 3.8rem)',
                 fontWeight: 700,
                 color: 'var(--ink)',
                 letterSpacing: '-0.02em',
               }}
             >
-              Da formação técnica à construção de produtos reais.
+              Da formação técnica à <span className="italic" style={{ color: 'var(--accent)', fontWeight: 400 }}>construção de produtos reais</span>.
             </h2>
 
             {/* Text body */}
             <div
               className="mt-8 space-y-5"
-              style={{ fontFamily: 'Space Grotesk', fontSize: '1rem', color: 'var(--ink-muted)', lineHeight: 1.8 }}
+              style={{ fontFamily: 'Space Grotesk', fontSize: '1.05rem', color: 'var(--ink-muted)', lineHeight: 1.8 }}
             >
               <p>
                 Comecei no desenvolvimento com o propósito de desvendar a engenharia por trás dos sistemas web e transformar ideias em aplicações funcionais. Cursando o 3º ano do <strong style={{ color: 'var(--ink)', fontWeight: 600 }}>Técnico em Informática</strong>, construí base sólida em lógica, estruturas de dados, orientação a objetos, bancos relacionais e arquitetura de software.
@@ -57,24 +57,6 @@ export default function About() {
               <p>
                 Como <strong style={{ color: 'var(--ink)', fontWeight: 600 }}>freelancer</strong>, entrego projetos de ponta a ponta, integrando IA (LLMs, OCR, visão computacional, n8n) para potencializar a produtividade e gerar valor real para o usuário.
               </p>
-            </div>
-
-            {/* 3 compact facts */}
-            <div className="mt-10 grid grid-cols-3 gap-6">
-              {[
-                { label: 'Solar Coca-Cola', sub: 'Estágio' },
-                { label: '11 Certs.', sub: 'AWS · Anthropic · Google' },
-                { label: '3º Ano', sub: 'Técnico em Informática' },
-              ].map(item => (
-                <div key={item.label} style={{ borderTop: '2px solid var(--accent)' }} className="pt-3">
-                  <p className="text-sm font-semibold" style={{ color: 'var(--ink)', fontFamily: 'Space Grotesk' }}>
-                    {item.label}
-                  </p>
-                  <p className="text-xs mt-0.5" style={{ color: 'var(--ink-muted)', fontFamily: 'Space Grotesk' }}>
-                    {item.sub}
-                  </p>
-                </div>
-              ))}
             </div>
           </div>
 
@@ -88,7 +70,7 @@ export default function About() {
                 className="editorial-quote"
                 style={{ color: 'var(--sage)', fontSize: 'clamp(1.4rem, 2.5vw, 2rem)' }}
               >
-                "Gosto de construir aplicações com React, Python e FastAPI, e uso IA quando ela facilita de&nbsp;verdade."
+                “Engenharia não é acumular frameworks, mas projetar arquiteturas resilientes que entregam valor palpável no dia a dia.”
               </p>
               <div
                 className="mt-8 flex items-center gap-3"
@@ -106,14 +88,6 @@ export default function About() {
                 </div>
               </div>
             </div>
-
-            {/* Small decorative text beside block */}
-            <p
-              className="mt-6 text-xs leading-relaxed"
-              style={{ color: 'var(--ink-faint)', fontFamily: 'Space Grotesk', fontStyle: 'italic' }}
-            >
-              Cascavel, Ceará — aberto a vagas júnior, estágios e projetos freelance.
-            </p>
           </div>
         </div>
 

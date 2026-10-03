@@ -10,7 +10,7 @@ import Footer from './components/Footer'
 
 export default function App() {
   return (
-    <div className="relative min-h-screen antialiased" style={{ background: 'var(--bg)', color: 'var(--ink)' }}>
+    <div className="relative min-h-screen antialiased" style={{ background: 'var(--creme)', color: 'var(--tinta)' }}>
       <Navbar />
       <main>
         <Hero />

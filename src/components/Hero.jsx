@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { ArrowUpRight, MapPin } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 import { personalInfo } from '../data/portfolioData'
 
 const FULL_NAME = 'Iarley Marques'
@@ -37,23 +37,8 @@ export default function Hero() {
   }, [])
 
   return (
-    <section id="inicio" className="relative pt-32 pb-0 lg:pt-40 overflow-hidden">
-      <div className="mx-auto max-w-7xl px-6 lg:px-10">
-
-        {/* — Top label row */}
-        <div className="reveal flex items-center gap-3 mb-8">
-          <span
-            className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-semibold tracking-wide"
-            style={{ background: 'var(--accent-light)', color: 'var(--accent)', border: '1px solid var(--accent)', fontFamily: 'Space Grotesk' }}
-          >
-            <span className="inline-block h-2 w-2 rounded-full animate-pulse" style={{ background: 'var(--accent)' }} />
-            {personalInfo.statusText}
-          </span>
-          <span className="text-xs font-medium" style={{ color: 'var(--ink-faint)', fontFamily: 'Space Grotesk' }}>
-            <MapPin size={12} className="inline mr-1" style={{ color: 'var(--ink-faint)' }} />
-            {personalInfo.location}
-          </span>
-        </div>
+    <section id="inicio" className="relative w-full pt-32 pb-0 lg:pt-40 overflow-hidden">
+      <div className="mx-auto max-w-7xl px-6 lg:px-10 relative z-10">
 
         {/* — Main grid: text left, photo right */}
         <div className="grid items-end gap-12 lg:grid-cols-[1fr_380px] lg:gap-16">
@@ -67,7 +52,7 @@ export default function Hero() {
                 fontFamily: 'Fraunces, Georgia, serif',
                 fontSize: 'clamp(3.5rem, 9vw, 8rem)',
                 fontWeight: 800,
-                color: 'var(--ink)',
+                color: 'var(--tinta)',
                 letterSpacing: '-0.03em',
               }}
             >
@@ -83,7 +68,7 @@ export default function Hero() {
                 fontSize: 'clamp(1.3rem, 2.5vw, 2rem)',
                 fontWeight: 400,
                 fontStyle: 'italic',
-                color: 'var(--ink-muted)',
+                color: 'var(--texto-suave)',
               }}
             >
               {personalInfo.role}
@@ -94,8 +79,8 @@ export default function Hero() {
               className="mt-6 max-w-xl leading-relaxed"
               style={{
                 fontFamily: 'Space Grotesk, sans-serif',
-                fontSize: '1rem',
-                color: 'var(--ink-muted)',
+                fontSize: '1.05rem',
+                color: 'var(--texto-suave)',
                 lineHeight: 1.75,
               }}
             >
@@ -106,10 +91,10 @@ export default function Hero() {
             <div className="mt-9 flex flex-wrap items-center gap-3">
               <a
                 href="#projetos"
-                className="group inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold transition-all"
-                style={{ background: 'var(--ink)', color: '#fff', fontFamily: 'Space Grotesk' }}
-                onMouseEnter={e => e.currentTarget.style.background = 'var(--accent)'}
-                onMouseLeave={e => e.currentTarget.style.background = 'var(--ink)'}
+                className="group inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold transition-all cursor-pointer"
+                style={{ background: 'var(--tinta)', color: '#fff', fontFamily: 'Space Grotesk' }}
+                onMouseEnter={e => e.currentTarget.style.background = 'var(--terracota)'}
+                onMouseLeave={e => e.currentTarget.style.background = 'var(--tinta)'}
               >
                 Ver Projetos
                 <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -117,15 +102,15 @@ export default function Hero() {
 
               <a
                 href="#contato"
-                className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold transition-all"
+                className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold transition-all cursor-pointer"
                 style={{
-                  border: '1.5px solid var(--ink)',
-                  color: 'var(--ink)',
+                  border: '1.5px solid var(--tinta)',
+                  color: 'var(--tinta)',
                   fontFamily: 'Space Grotesk',
                   background: 'transparent',
                 }}
-                onMouseEnter={e => { e.currentTarget.style.background = 'var(--ink)'; e.currentTarget.style.color = '#fff'; }}
-                onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--ink)'; }}
+                onMouseEnter={e => { e.currentTarget.style.background = 'var(--tinta)'; e.currentTarget.style.color = '#fff'; }}
+                onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--tinta)'; }}
               >
                 Entrar em Contato
               </a>
@@ -134,7 +119,7 @@ export default function Hero() {
             {/* Quick stats row */}
             <div
               className="mt-10 flex flex-wrap gap-8 pt-8"
-              style={{ borderTop: '1px solid #d9d3cb' }}
+              style={{ borderTop: '1px solid #DCD3C5' }}
             >
               {[
                 { value: '4', label: 'Projetos em produção' },
@@ -144,13 +129,13 @@ export default function Hero() {
                 <div key={stat.label}>
                   <p
                     className="leading-none"
-                    style={{ fontFamily: 'Fraunces', fontSize: '2.2rem', fontWeight: 700, color: 'var(--ink)' }}
+                    style={{ fontFamily: 'Fraunces', fontSize: '2.2rem', fontWeight: 700, color: 'var(--tinta)' }}
                   >
                     {stat.value}
                   </p>
                   <p
                     className="mt-1 text-xs font-medium"
-                    style={{ color: 'var(--ink-muted)', fontFamily: 'Space Grotesk' }}
+                    style={{ color: 'var(--texto-suave)', fontFamily: 'Space Grotesk' }}
                   >
                     {stat.label}
                   </p>
@@ -159,71 +144,43 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Right: photo */}
-          <div className="reveal relative self-end" style={{ animationDelay: '200ms' }}>
-            {/* Color block behind photo */}
-            <div
-              className="absolute bottom-0 right-0 w-full"
+          {/* Right: photo cleanly cropped without background block or floating badge */}
+          <div className="reveal relative self-end flex justify-center" style={{ animationDelay: '200ms' }}>
+            <img
+              src="/iarley.jpg"
+              alt="Iarley Marques"
+              className="object-cover object-top shadow-lg"
               style={{
-                height: '85%',
-                background: 'var(--accent-light)',
+                width: '320px',
+                height: '430px',
                 borderRadius: '24px 24px 0 0',
-                zIndex: 0,
+                display: 'block',
+                filter: 'contrast(1.04)',
+              }}
+              onError={(e) => {
+                // fallback: show initials block if photo fails
+                e.currentTarget.style.display = 'none'
+                e.currentTarget.nextSibling.style.display = 'flex'
               }}
             />
-
-            {/* Photo */}
-            <div className="relative z-10 flex justify-center">
-              <img
-                src="/iarley.jpg"
-                alt="Iarley Marques"
-                className="object-cover object-top"
-                style={{
-                  width: '320px',
-                  height: '420px',
-                  borderRadius: '20px 20px 0 0',
-                  display: 'block',
-                  filter: 'contrast(1.04)',
-                }}
-                onError={(e) => {
-                  // fallback: show initials block if photo fails
-                  e.currentTarget.style.display = 'none'
-                  e.currentTarget.nextSibling.style.display = 'flex'
-                }}
-              />
-              {/* fallback initials block */}
-              <div
-                style={{
-                  display: 'none',
-                  width: '320px',
-                  height: '420px',
-                  borderRadius: '20px 20px 0 0',
-                  background: 'var(--accent)',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontFamily: 'Fraunces',
-                  fontSize: '5rem',
-                  fontWeight: 800,
-                  color: '#fff',
-                  letterSpacing: '-0.04em',
-                }}
-              >
-                IM
-              </div>
-            </div>
-
-            {/* Floating role badge */}
+            {/* fallback initials block */}
             <div
-              className="absolute left-0 top-1/3 -translate-x-1/2 rounded-2xl px-4 py-3 shadow-lg"
               style={{
-                background: '#fff',
-                border: '1px solid #e9e3db',
-                zIndex: 20,
-                transform: 'translateX(-40%) translateY(-20%)',
+                display: 'none',
+                width: '320px',
+                height: '430px',
+                borderRadius: '24px 24px 0 0',
+                background: 'var(--terracota)',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontFamily: 'Fraunces',
+                fontSize: '5rem',
+                fontWeight: 800,
+                color: '#fff',
+                letterSpacing: '-0.04em',
               }}
             >
-              <p className="text-xs font-semibold" style={{ color: 'var(--ink)', fontFamily: 'Space Grotesk' }}>Full Stack & IA</p>
-              <p className="text-[11px]" style={{ color: 'var(--ink-muted)', fontFamily: 'Space Grotesk' }}>Solar Coca-Cola</p>
+              IM
             </div>
           </div>
         </div>
