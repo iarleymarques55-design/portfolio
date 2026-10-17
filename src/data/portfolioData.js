@@ -2,13 +2,15 @@ export const personalInfo = {
   name: "Iarley Marques",
   role: "Desenvolvedor web full stack",
   specialization: "Aplicações web e inteligência artificial aplicada",
-  titleHeadline: "Desenvolvedor web full stack · React · Node.js · Python · FastAPI · PostgreSQL · IA · AWS",
   location: "Cascavel, Ceará, Brasil",
-  bio: "Sou estudante de Informática, estagiário de desenvolvimento na Distribuidora Irmãos Barreiro que é filiada a (Solar Coca-Cola) e sou  freelancer nas horas vagas. Gosto de construir aplicações com React, Python e FastAPI, e uso IA quando ela facilita de verdade — não só porque é tendência.",
+  bio: "Sou estudante de Informática, estagiário de desenvolvimento na Distribuidora Irmãos Barreiro, filiada à Solar Coca-Cola, e freelancer nas horas vagas. Gosto de construir aplicações com React, Python e FastAPI, e uso IA quando ela facilita de verdade — não só porque é tendência.",
   linkedin: "https://linkedin.com/in/iarley-marques23",
   github: "https://github.com/iarleymarques55-design",
   email: "iarleymarques028@gmail.com",
-  availableForWork: true,
+  // Preencha para mostrar o WhatsApp no contato, ex.: "(88) 9 9999-9999"
+  whatsapp: "",
+  // Caminho de um PDF em /public para mostrar o botão "Baixar currículo", ex.: "/curriculo.pdf"
+  resume: "",
   statusText: "Disponível para projetos e oportunidades",
 }
 
@@ -29,181 +31,63 @@ export const stats = [
     detail: "Solar Coca-Cola (estágio) e freelance",
   },
   {
-    value: "3º ano",
-    label: "Técnico em Informática",
-    detail: "Formação Técnica (2024 – 2026)",
+    value: "Técnico",
+    label: "em Informática",
+    detail: "Formação técnica (2024 – 2026)",
   },
 ]
 
 export const navigation = [
+  { label: "Início", href: "#inicio" },
   { label: "Sobre", href: "#sobre" },
   { label: "Projetos", href: "#projetos" },
   { label: "Habilidades", href: "#habilidades" },
   { label: "Experiência", href: "#experiencia" },
-  { label: "Certificados", href: "#certificados" },
+  { label: "Formação", href: "#formacao" },
+  { label: "Certificações", href: "#certificados" },
   { label: "Contato", href: "#contato" },
 ]
 
 export const projects = [
   {
     id: "correnem",
-    number: "01",
     title: "CorrEnem",
     subtitle: "Corretor Inteligente de Redações ENEM com IA & Visão Computacional",
     period: "Jun/2026 – Ago/2026",
     category: "IA & Educação",
-    badge: "EdTech & IA",
     status: "Em Produção",
-    description: "Plataforma web inovadora para correção automatizada de redações no padrão oficial do ENEM. Analisa o texto em segundos, atribuindo notas de 0 a 200 nas 5 competências do exame com apontamento detalhado de desvios gramaticais e sugestões estruturais.",
-    problemSolved: "Demora e alto custo para obter correções detalhadas de redações preparatórias para o ENEM.",
-    metrics: [
-      { label: "Precisão Avaliativa", value: "5 Competências" },
-      { label: "Tempo de Análise", value: "< 3 segundos" },
-      { label: "Pipeline OCR", value: "Texto Manuscrito" },
-    ],
-    highlights: [
-      "Avaliação nas 5 competências oficiais do ENEM com justificativa pedagógica individual",
-      "Mecanismo de OCR integrado para transcrição de fotos de folhas de redação manuscritas",
-      "API assíncrona de alta performance desenvolvida em FastAPI com SQLAlchemy e PostgreSQL",
-      "Autenticação segura via OAuth 2.0 e deploy conteinerizado no Railway",
-    ],
-    stack: ["React 19", "Vite", "Tailwind CSS", "Python", "FastAPI", "PostgreSQL", "SQLAlchemy", "Groq / Llama SDK", "OAuth 2.0", "Railway"],
     deploy: "https://correnem.up.railway.app",
     github: "https://github.com/iarleymarques55-design/CorrEnem",
   },
   {
     id: "agrobot",
-    number: "02",
     title: "AgroBot",
     subtitle: "Assistente Agronômico com IA Multimodal & Streaming em Tempo Real",
     period: "Mai/2026 – Jun/2026",
     category: "IA & Agrotech",
-    badge: "Agrotech & Nuvem",
     status: "Em Produção",
-    description: "Assistente inteligente desenvolvido para produtores rurais e agrônomos. Processa consultas agronômicas com respostas ultra-rápidas via streaming SSE e analisa fotos de lavouras e solos para diagnóstico de pragas e recomendações de adubação.",
-    problemSolved: "Acesso lento a orientações agronômicas técnicas e diagnóstico de lavoura no campo.",
-    metrics: [
-      { label: "Streaming", value: "SSE Instantâneo" },
-      { label: "Processamento", value: "Visão Multimodal" },
-      { label: "Infraestrutura", value: "AWS + Railway" },
-    ],
-    highlights: [
-      "Chat interativo com respostas instantâneas via streaming com Server-Sent Events (SSE)",
-      "Módulo de visão computacional para detecção de anomalias em fotos de plantios e solos",
-      "Geração automática de relatórios técnicos sobre irrigação, sustentabilidade e manejo",
-      "Banco de dados relacional PostgreSQL na AWS com alta disponibilidade",
-    ],
-    stack: ["Node.js", "JavaScript", "PostgreSQL", "Groq API (IA)", "AWS", "Railway", "HTML5", "CSS3", "SSE"],
-    deploy: "https://agrobot-production-3458.up.railway.app",
+    deploy: "https://agrobot.up.railway.app",
     github: "https://github.com/iarleymarques55-design",
   },
   {
     id: "bemcicatri",
-    number: "03",
     title: "BemCicatri",
     subtitle: "Sistema Clínico Offline-First para Tratamento de Úlceras Diabéticas",
     period: "2026",
     category: "Saúde & Offline-First",
-    badge: "Saúde Digital",
-    status: "Deploy Clínico",
-    description: "Software médico voltado para o monitoramento e evolução do tratamento de feridas e pés diabéticos. Suporta funcionamento ininterrupto sem internet, permitindo que profissionais de saúde registrem avaliações na escala de Wagner e HbA1c em campo.",
-    problemSolved: "Falta de conectividade em visitas domiciliares e necessidade de acompanhamento padronizado de feridas.",
-    metrics: [
-      { label: "Disponibilidade", value: "100% Offline-First" },
-      { label: "Protocolo", value: "Escala Wagner & HbA1c" },
-      { label: "Segurança", value: "JWT + Bcrypt" },
-    ],
-    highlights: [
-      "Arquitetura Offline-First com sincronização bidirecional via IndexedDB e LocalStorage",
-      "Simulador clínico baseado na escala internacional de Wagner e controle glicêmico (HbA1c)",
-      "Gráficos interativos de evolução cicatricial e projeção de tempo de recuperação",
-      "Autenticação robusta com Google OAuth, JWT e criptografia de senhas com bcrypt",
-    ],
-    stack: ["Node.js", "Express", "PostgreSQL (AWS)", "IndexedDB", "LocalStorage", "JWT", "Google OAuth", "SSE", "bcrypt", "Railway"],
-    deploy: null,
-    statusNotice: "Deploy clínico sob demanda",
+    status: "Em Produção",
+    deploy: "https://bemcicatri-2-production-37a0.up.railway.app",
     github: "https://github.com/iarleymarques55-design",
   },
   {
     id: "album",
-    number: "04",
     title: "Álbum de Figurinhas Virtual",
     subtitle: "Microsserviço RESTful Assíncrono com Validações & Concorrência",
     period: "Jul/2026",
     category: "Back-End & APIs",
-    badge: "Imersão Alura",
     status: "Em Produção",
-    description: "Serviço de backend moderno focado em alta concorrência e modelagem relacional. Implementa manipulação de pacotes, trocas em tempo real e controle de duplicatas com validações rigorosas via Pydantic e FastAPI.",
-    problemSolved: "Gerenciamento eficiente de transações de colecionáveis virtuais e requisições concorrentes.",
-    metrics: [
-      { label: "Arquitetura", value: "FastAPI Assíncrono" },
-      { label: "Validação", value: "Pydantic Schemas" },
-      { label: "Deploy", value: "Docker / Railway" },
-    ],
-    highlights: [
-      "Endpoints assíncronos de baixa latência construídos com FastAPI e Uvicorn",
-      "Modelagem de dados relacional com integridade referencial e índices otimizados",
-      "Camada de middlewares customizados para validação de payload, headers e CORS",
-      "Containerização e deploy contínuo integrado no Railway",
-    ],
-    stack: ["Python", "FastAPI", "Uvicorn", "Railway", "APIs RESTful", "Middlewares"],
     deploy: "https://album-meu-production-cbec.up.railway.app",
     github: "https://github.com/iarleymarques55-design/album-meu",
-  },
-]
-
-export const skillCategories = [
-  {
-    title: "Front-end",
-    badge: "Interface",
-    description: "Interfaces responsivas com React, HTML semântico e Tailwind CSS.",
-    items: [
-      { name: "React 19", level: "Avançado" },
-      { name: "Tailwind CSS", level: "Avançado" },
-      { name: "JavaScript (ES6+)", level: "Avançado" },
-      { name: "HTML5 e CSS3", level: "Avançado" },
-      { name: "Vite", level: "Intermediário" },
-      { name: "Layout responsivo", level: "Avançado" },
-    ],
-  },
-  {
-    title: "Back-end e APIs",
-    badge: "Servidor",
-    description: "APIs REST, serviços assíncronos e dados em tempo real.",
-    items: [
-      { name: "Python", level: "Avançado" },
-      { name: "FastAPI e Uvicorn", level: "Avançado" },
-      { name: "Node.js e Express", level: "Intermediário" },
-      { name: "APIs REST", level: "Avançado" },
-      { name: "SQLAlchemy", level: "Intermediário" },
-      { name: "SSE", level: "Intermediário" },
-    ],
-  },
-  {
-    title: "Dados e nuvem",
-    badge: "Infraestrutura",
-    description: "PostgreSQL, persistência local e publicação em nuvem.",
-    items: [
-      { name: "PostgreSQL", level: "Avançado" },
-      { name: "AWS", level: "Intermediário" },
-      { name: "Railway", level: "Avançado" },
-      { name: "IndexedDB e LocalStorage", level: "Avançado" },
-      { name: "Git e GitHub", level: "Avançado" },
-      { name: "JWT, OAuth 2.0, bcrypt", level: "Avançado" },
-    ],
-  },
-  {
-    title: "Inteligência artificial",
-    badge: "IA",
-    description: "LLMs no produto e no fluxo de desenvolvimento.",
-    items: [
-      { name: "Groq API e Llama SDK", level: "Avançado" },
-      { name: "Claude Code (Anthropic)", level: "Avançado" },
-      { name: "Google Gemini", level: "Avançado" },
-      { name: "Agentes e n8n", level: "Intermediário" },
-      { name: "OCR e visão multimodal", level: "Intermediário" },
-      { name: "Prompts e RAG", level: "Intermediário" },
-    ],
   },
 ]
 
@@ -212,28 +96,23 @@ export const experiences = [
     role: "Desenvolvedor web júnior full stack (estágio)",
     company: "Distribuidora Irmãos Barreiro (Solar Coca-Cola)",
     type: "Estágio",
-    location: "Cascavel, CE",
     period: "Ago de 2026 – o momento",
     description: "Desenvolvimento de aplicações web com React e Tailwind no front-end e Python com PostgreSQL no back-end. Trabalho em equipe com Git, GitHub e entregas contínuas.",
-    skills: ["React", "Tailwind CSS", "HTML5 e CSS3", "JavaScript", "Python", "PostgreSQL", "Git/GitHub"],
   },
   {
     role: "Desenvolvedor web júnior full stack",
     company: "Freelance",
     type: "Autônomo",
-    location: "Remoto",
     period: "Abr de 2026 – o momento",
     description: "Sistemas, páginas e ferramentas com IA para clientes: do desenho da solução ao deploy. Cobre front-end, back-end e publicação.",
-    skills: ["Full stack", "Node.js", "FastAPI", "React", "Groq / IA", "AWS", "Railway"],
   },
 ]
 
 export const education = {
-  institution: "Técnico em Informática",
   degree: "Técnico em Informática",
   period: "Jan de 2024 – Dez de 2026",
   location: "Cascavel, Ceará",
-  status: "Cursando o 3º ano",
+  status: "Cursando",
   description: "Curso técnico integrado. Base sólida em desenvolvimento web, estruturas de dados, algoritmos, orientação a objetos, banco de dados, lógica de programação, espanhol e inglês.",
   highlights: [
     "Fundamentos de software e problemas reais",
@@ -248,7 +127,6 @@ export const certifications = [
     title: "Gerenciamento do Claude Code",
     issuer: "Anthropic",
     date: "Mai/2026",
-    category: "IA",
     highlight: true,
   },
   {
@@ -256,7 +134,6 @@ export const certifications = [
     title: "Fluência e Gerenciamento de IA",
     issuer: "Anthropic",
     date: "Mai/2026",
-    category: "IA",
     highlight: true,
   },
   {
@@ -264,7 +141,6 @@ export const certifications = [
     title: "Imersão de Agentes de IA n8n",
     issuer: "Hashtag Treinamentos",
     date: "Jul/2026",
-    category: "IA",
     highlight: true,
   },
   {
@@ -272,7 +148,6 @@ export const certifications = [
     title: "Arquitetura Web com IA",
     issuer: "Alura",
     date: "Jul/2026",
-    category: "IA",
     highlight: true,
   },
   {
@@ -280,7 +155,6 @@ export const certifications = [
     title: "Missão Programação com IA",
     issuer: "DevClub",
     date: "Jul/2026",
-    category: "IA",
     highlight: false,
   },
   {
@@ -288,7 +162,6 @@ export const certifications = [
     title: "Programação em Nuvem",
     issuer: "Amazon Web Services (AWS)",
     date: "Abr/2026",
-    category: "Cloud",
     highlight: true,
   },
   {
@@ -296,7 +169,6 @@ export const certifications = [
     title: "Gestão de Projetos",
     issuer: "Google",
     date: "Mai/2026",
-    category: "Gestão",
     highlight: false,
   },
   {
@@ -304,7 +176,6 @@ export const certifications = [
     title: "Python",
     issuer: "Hashtag Treinamentos",
     date: "Mai/2026",
-    category: "Dev",
     highlight: false,
   },
   {
@@ -312,7 +183,6 @@ export const certifications = [
     title: "Programação Básica",
     issuer: "Bradesco",
     date: "Abr/2026",
-    category: "Dev",
     highlight: false,
   },
   {
@@ -320,7 +190,6 @@ export const certifications = [
     title: "Excel",
     issuer: "Hashtag Treinamentos",
     date: "Jul/2026",
-    category: "Gestão",
     highlight: false,
   },
   {
@@ -328,7 +197,10 @@ export const certifications = [
     title: "Inglês Básico",
     issuer: "EF SET",
     date: "Jun/2026",
-    category: "Geral",
     highlight: false,
   },
 ]
+
+// Abre a tela de "Escrever e-mail" do Gmail já com o destinatário preenchido.
+// O mailto: depende de um programa de e-mail instalado e muitas vezes não abre nada.
+export const emailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${personalInfo.email}`
